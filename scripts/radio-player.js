@@ -1,3 +1,3 @@
-export const radioPlayer = () => {
+export const radioPlayerInit = () => {
   console.log(`radioPlayer`);
 };
