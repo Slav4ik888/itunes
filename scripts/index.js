@@ -2,6 +2,8 @@ import {radioPlayerInit} from './radio-player.js';
 import {musicPlayerInit} from './music-player.js';
 import {videoPlayerInit} from './video-player.js';
 
+
+////////////////////////////////////////////////////
 const names = [`Slava`, `Sergio`, `Manya`];
 
 const obj = {
@@ -21,6 +23,8 @@ const check = function(item, i, arr) {
 };
 
 names.forEach(check, obj);
+
+////////////////////////////////////////////////////
 
 const
   temp = document.querySelector(`.temp`),

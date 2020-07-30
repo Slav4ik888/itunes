@@ -5,12 +5,15 @@ export const radioPlayerInit = () => {
     radioNavigation = document.querySelector(`.radio-navigation`),
     radioHeaderBig = document.querySelector(`.radio-header__big`),
     radioItem = document.querySelectorAll(`.radio-item`),
-    radioStop = document.querySelector(`.radio-stop`);
+    radioStop = document.querySelector(`.radio-stop`),
+    radioVolume = document.querySelector(`.radio-volume`);
   
   const audio = new Audio();
   audio.type =  `audio/aac`;
 
   radioStop.disabled = true;
+  radioVolume.value = radioVolume.max;
+
 
   const toggleAudio = () => {
     if (audio.paused) {
@@ -58,14 +61,15 @@ export const radioPlayerInit = () => {
     radioCoverImg.src = img;
 
     audio.src = target.dataset.radioStantion;
+    
+    console.log('audio.volume: ', audio.volume);
     // audio.muted = true;
     changeIconPlay();
     toggleAudio();
 
   });
 
-  // radioNavigation.addEventListener(`click`, () => {
-  //   changeIconPlay();
-  //   toggleAudio();
-  // })
+  radioVolume.addEventListener(`change`, ()  => {
+    audio.volume = radioVolume.value / radioVolume.max;
+  })
 };

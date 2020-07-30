@@ -52,7 +52,7 @@
 		<article class="player-block video">
 			<div class="container">
 				<div class="video-container">
-					<video src="video/rocket_launching.mp4" class="video-player" muted poster="video/play.svg"></video>
+					<video src="video/rocket_launching.mp4" class="video-player"  poster="video/play.svg"></video>
 					<nav class="video-navigation">
 						<button class="video-button video-button__play fa fa-play"></button>
 						<button class="video-button video-button__stop fa fa-stop"></button>
@@ -173,8 +173,13 @@
 					</form>
 				</div>
 			</div>
+			
 			<footer class="footer-fix radio-footer">
 				<button class="radio-stop fa fa-play"></button>
+				
+				<div class="radio-slider-wrapper">
+					<input type="range" class="radio-volume" min="0" max="100" step="1">
+				</div>
 			</footer>
 		</article>
 	</main>
