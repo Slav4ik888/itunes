@@ -6,7 +6,8 @@ export const radioPlayerInit = () => {
     radioHeaderBig = document.querySelector(`.radio-header__big`),
     radioItem = document.querySelectorAll(`.radio-item`),
     radioStop = document.querySelector(`.radio-stop`),
-    radioVolume = document.querySelector(`.radio-volume`);
+    radioVolume = document.querySelector(`.radio-volume`),
+    radioMute = document.querySelector(`.radio-mute`);
   
   const audio = new Audio();
   audio.type =  `audio/aac`;
@@ -15,12 +16,18 @@ export const radioPlayerInit = () => {
   radioVolume.value = radioVolume.max;
 
 
+  let prevVolume = radioVolume.max;
+
   const toggleAudio = () => {
     if (audio.paused) {
       audio.play();
+      radio.classList.add(`play`);
+
       radioStop.disabled = false;
     } else {
       audio.pause();
+      radio.classList.remove(`play`);
+
     }
   };
 
@@ -62,7 +69,7 @@ export const radioPlayerInit = () => {
 
     audio.src = target.dataset.radioStantion;
     
-    console.log('audio.volume: ', audio.volume);
+    // console.log('audio.volume: ', audio.volume);
     // audio.muted = true;
     changeIconPlay();
     toggleAudio();
@@ -71,5 +78,26 @@ export const radioPlayerInit = () => {
 
   radioVolume.addEventListener(`change`, ()  => {
     audio.volume = radioVolume.value / radioVolume.max;
-  })
+    prevVolume = audio.volume;
+
+  });
+
+  radioMute.addEventListener(`click`, () => {
+    console.log(1);
+    if (audio.volume) {
+      prevVolume = audio.volume;
+      radioVolume.value = 0;
+      audio.volume = 0;
+    } else {
+      audio.volume = prevVolume;
+      radioVolume.value = prevVolume;
+    }
+  }); 
+
+  radioPlayerInit.stop = () => {
+      audio.pause();
+      changeIconPlay();
+      radioStop.disabled = true;
+  };
+
 };

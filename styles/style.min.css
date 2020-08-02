@@ -563,17 +563,6 @@ input[type="range"]:focus::-ms-fill-lower {
 input[type="range"]:focus::-ms-fill-upper {
   background: #367ebd;
 }
-.radio-slider-wrapper {
-  display: inline-block;
-  width: 65px;
-  height: 240px;
-  padding: 0;
-  transform-origin: 75px 75px;
-  transform: rotate(-90deg);
-  z-index: 999;
-
-}
-
 .video {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -654,6 +643,12 @@ input[type="range"]:focus::-ms-fill-upper {
   display: -ms-flexbox;
   display: flex;
 }
+.video-icon {
+  margin: 5px;
+}
+.video-volume {
+  max-width: 100px;
+}
 .audio {
   display: none;
 }
@@ -661,6 +656,12 @@ input[type="range"]:focus::-ms-fill-upper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+.audio-icon {
+  margin: 5px;
+}
+.audio-volume {
+  max-width: 100px;
 }
 .radio {
   display: none;
@@ -670,6 +671,24 @@ input[type="range"]:focus::-ms-fill-upper {
   display: -ms-flexbox;
   display: flex;
 }
+.radio-icon {
+  margin: 5px;
+}
+.radio-volume {
+  max-width: 100px;
+}
+
+.radio-slider-wrapper {
+  display: inline-block;
+  width: 65px;
+  height: 240px;
+  padding: 0;
+  transform-origin: 75px 75px;
+  transform: rotate(-90deg);
+  z-index: 999;
+
+}
+
 .red-text {
   color: #f51e38;
 }

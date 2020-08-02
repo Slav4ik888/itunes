@@ -12,11 +12,15 @@ export const musicPlayerInit = () => {
   const audioProgress = document.querySelector(`.audio-progress`);
   const audioProgressTiming = document.querySelector(`.audio-progress__timing`);
   const audioTimeTotal = document.querySelector(`.audio-time__total`);
+  const audioVolume = document.querySelector(`.audio-volume`);
+  const audioMute = document.querySelector(`.audio-mute`);
 
+  
   const playlist = [`hello`, `flow`, `speed`];
 
   let trackIndex = 0;
-
+  let prevVolume = audioVolume.max;
+  audioVolume.value = audioVolume.max;
 
   const loadTrack = () => {
     const isPlayed = audioPlayer.paused;
@@ -30,6 +34,10 @@ export const musicPlayerInit = () => {
     } else {
       audioPlayer.play();
     }
+
+    audioPlayer.addEventListener(`canplay`, () => {
+      updateTime();
+    });
   };
 
 
@@ -86,8 +94,8 @@ export const musicPlayerInit = () => {
     audioPlayer.play();
   });
 
-
-  audioPlayer.addEventListener(`timeupdate`, () => {
+    
+  const updateTime = () => {
     const currentTime = audioPlayer.currentTime;
     const duration = audioPlayer.duration;
     const progress = currentTime / duration * 100;
@@ -102,17 +110,47 @@ export const musicPlayerInit = () => {
 
     audioTimePassed.textContent = `${addZero(minutesPassed)}:${addZero(secondsPassed)}`;
     audioTimeTotal.textContent = `${addZero(minutesTotal)}:${addZero(secondsTotal)}`;
-  });
+  };
 
 
+  audioPlayer.addEventListener(`timeupdate`, updateTime);
+
+  
   audioProgress.addEventListener(`click`, e => {
     const x = e.offsetX;
     const allWidth = audioProgress.clientWidth;
     const progress =  x / allWidth * audioPlayer.duration;
 
     audioPlayer.currentTime = progress;
-  })
+  });
 
 
+  audioVolume.addEventListener(`change`, e => {
+    const volume = e.target.value;
+    audioVolume.value = volume;
+    audioPlayer.volume = volume;
+  });
 
+
+  audioMute.addEventListener(`click`, () => {
+    console.log('click: ');
+    if (audioVolume.value > 0) {
+      prevVolume = audioPlayer.volume;
+      console.log('prevVolume: ', prevVolume);
+      audioPlayer.volume = 0;
+      audioVolume.value = 0;
+    } else {
+      audioPlayer.volume = prevVolume;
+      audioVolume.value = prevVolume;
+    }
+  });
+
+  musicPlayerInit.stop = () => {
+    if (!audioPlayer.paused) {
+      audioPlayer.pause();
+      audio.classList.remove(`play`);
+      audioButtonPlay.classList.remove(`fa-play`);
+      audioButtonPlay.classList.add(`fa-paused`);
+    }
+  };
 };
